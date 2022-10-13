@@ -34,8 +34,8 @@ class Column:
         elevator = self.findElevator(floor, direction)
         elevator.floorRequestList.append(floor)
         elevator.move()
-       #elevator.operateDoors()
-        elevator.floorRequestList = []
+        elevator.operateDoors()
+        elevator.floorReauestList = []
         return elevator
 
     def findElevator(self, requestedFloor, requestedDirection):
@@ -97,7 +97,7 @@ class Elevator:
     def requestFloor(self, floor):
         self.floorRequestList.append(floor)
         self.move()
-        #self.operateDoors()
+        self.operateDoors()
 
     def move(self):
         while len(self.floorRequestList) != 0:
@@ -106,9 +106,6 @@ class Elevator:
             if self.currentFloor < destination:
                 self.direction = "Up"
                 self.sortFloorList()
-                result1 = type(self.currentFloor)
-                result2 = type(destination)
-                print(result1, result2)
                 while self.currentFloor < destination:
                     self.currentFloor += 1
                     self.screenDisplay.append(self.currentFloor)
@@ -131,10 +128,10 @@ class Elevator:
 
     def operateDoors(self):
         self.door.status = "opened"
-        overweight = None
-        obstruction = None
-        time.sleep(5)
-        if overweight == False:
+        overweight = 350 #kg chosen at random
+        obstruction = False #by default there is obstruction
+        #time.sleep(5) wait five seconds --> not working
+        if overweight < 600:
             self.door.status = "closing"
             if obstruction == False:
                 self.door.status = "closed"
@@ -164,11 +161,11 @@ class Door:
         self.ID = _id
         self.status = "closed"
 
-column = Column(1, 10, 2)
-column.elevatorList[0].currentFloor = 10
-column.elevatorList[1].currentFloor = 3
-column.elevatorList[0].status = 'idle'
-column.elevatorList[1].status = 'moving'
-column.elevatorList[1].direction = 'Up'
-elevator = column.requestElevator(3, 'Down')
-elevator.requestFloor(2)
+# column = Column(1, 10, 2)
+# column.elevatorList[0].currentFloor = 10
+# column.elevatorList[1].currentFloor = 3
+# column.elevatorList[0].status = 'idle'
+# column.elevatorList[1].status = 'moving'
+# column.elevatorList[1].direction = 'Up'
+# elevator = column.requestElevator(3, 'Down')
+# elevator.requestFloor(2)
